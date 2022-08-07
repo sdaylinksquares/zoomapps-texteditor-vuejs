@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { Participant } from '../types';
 
 export default createStore({
     state: {
@@ -10,6 +11,7 @@ export default createStore({
         },
         context: '',
         meetingUUID: '',
+        participants: [],
     },
     getters: {},
     mutations: {
@@ -25,6 +27,9 @@ export default createStore({
         setMeetingUUID(state, uuid) {
             state.meetingUUID = uuid;
         },
+        setParticipants(state, participants){
+            state.participants = participants.participants;
+        }
     },
     actions: {},
     modules: {},
