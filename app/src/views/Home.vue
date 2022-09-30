@@ -6,6 +6,11 @@
         <div>
             <button @click="loadParticipants">Get Participants</button>
             <button @click="listParticipants">List Participants</button>
+            
+            <h2>Participants Done</h2>
+            <h2>Current Participant</h2>
+            <h2>Next Participant</h2>
+            <h2>Remaining Participants</h2>
             <li v-for="participant in participantsFromStore">
                 {{ participant.screenName}}
             </li>
@@ -18,6 +23,9 @@ import Editor from '@/components/Editor';
 import { useStore } from 'vuex';
 import { computed, inject, ref } from 'vue';
 import { ZoomSDK, Participant } from '../types';
+import testData from '@/Testing/mockParticipants';
+
+const mock = true;
 
 const zoomSdk = inject('zoomSdk') as ZoomSDK;
 const store = useStore();
@@ -26,9 +34,12 @@ const content = computed(() => store.state.content);
 const isInClient = computed(() => store.state.context === 'isMainClient');
 const participantsFromStore = computed(() => store.state.participants);
 
+zoomSdk.addEventListener("onMessage", (eventInfo) => { console.log("received:", eventInfo) })
+zoomSdk.addEventListener("")
 async function loadParticipants(){
     let meetingParticipants = await zoomSdk.getMeetingParticipants();
-    console.log("Participants stored again");
+    //console.log("Participants stored again");
+    console.log(meetingParticipants);
     store.commit('setParticipants', meetingParticipants);
 }
 

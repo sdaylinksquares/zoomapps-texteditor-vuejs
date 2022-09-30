@@ -12,6 +12,8 @@ export default createStore({
         context: '',
         meetingUUID: '',
         participants: [],
+        currentParticipant: {},
+        nextParticipant: {},
     },
     getters: {},
     mutations: {
@@ -31,6 +33,28 @@ export default createStore({
             state.participants = participants.participants;
         }
     },
-    actions: {},
+    actions: {
+        randomizeParticipants({commit, state}){
+            commit('setParticipants', shuffle(state.participants));
+        }
+    },
     modules: {},
 });
+
+function shuffle(array:string[]) {
+    var m = array.length, t, i;
+  
+    // While there remain elements to shuffle…
+    while (m) {
+  
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+  }
